@@ -1,18 +1,38 @@
 import React, { useState } from 'react';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { Keyboard, KeyboardAvoidingView, Platform, Pressable, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
 import Colors from '../constants/Colors';
 import { Text, View } from '../components/Themed';
-import { RootStackScreenProps } from '../types';
+import { RootStackScreenProps, useAppDispatch } from '../types';
+import { addTabit } from '../reducers/tabitsSlice';
 import FrequencyInput from '../components/FrequencyInput';
 import DatePicker from '../components/DatePicker';
 
 export default function AddTabitScreen({ navigation }: RootStackScreenProps<'Add Tabit'>) {
-    const [date, setDate] = useState(new Date());
-    const [showDatePicker, setShowDatePicker] = useState(false);
+    const dispatch = useAppDispatch();
     
+    const [name, setName] = useState("");
+    const [freq, setFreq] = useState<number[]>([]);
+    const [endDate, setEndDate] = useState(new Date());
+
+    function updateFreq(id: number, active: boolean) {
+        if (active) {
+            setFreq(prevState => prevState.filter(d => d !== id));
+        }
+        else {
+            setFreq(prevState => [...prevState, id]);
+        }
+    }
+
+    function submitForm() {
+        dispatch(addTabit({ 
+            name, freq, streak: 0, end: endDate.toDateString() 
+        }));
+        navigation.navigate("Root");
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.turtle}>
@@ -35,24 +55,26 @@ export default function AddTabitScreen({ navigation }: RootStackScreenProps<'Add
                                 placeholderTextColor="#60605e"
                                 maxLength={256}
                                 returnKeyType='next'
+                                value={name}
+                                onChangeText={setName}
                             />
 
                             <Text style={styles.formQuestion}>
                                 How often would you like to do this?
                             </Text>
-                            <FrequencyInput />
+                            <FrequencyInput setFreqHandler={updateFreq}/>
 
                             <Text style={styles.formQuestion}>
                                 How long do you want to do it for?
                             </Text>
-                            <DatePicker date={date} setDateHandler={(newDate: Date) => setDate(newDate)}/>
+                            <DatePicker date={endDate} setDateHandler={(newDate: Date) => setEndDate(newDate)}/>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
             <TouchableOpacity
                 style={styles.formSubmit}
-                onPress={() => null}
+                onPress={() => submitForm()}
             >
                 <FontAwesome5
                     name="arrow-right"

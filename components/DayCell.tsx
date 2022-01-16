@@ -6,9 +6,10 @@ import Colors from "../constants/Colors";
 type DayCellProps = {
     id: number,
     day: string,
+    updateState: ((id: number, active: boolean) => void),
 }
 
-export default function DayCell({ id, day }: DayCellProps) {
+export default function DayCell({ id, day, updateState }: DayCellProps) {
     const [active, setActive] = useState(false);
 
     return (
@@ -16,7 +17,10 @@ export default function DayCell({ id, day }: DayCellProps) {
             style={
                 active ? styles.containerActive : styles.container
             }
-            onPress={() => setActive(status => !status)}
+            onPress={() => {
+                setActive(status => !status);
+                updateState(id, active);
+            }}
         >
             <Text style={active ? styles.dayActive : styles.day}>{day}</Text>
         </Pressable>

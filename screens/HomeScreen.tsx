@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
-import { RootTabScreenProps } from '../types';
+import { RootTabScreenProps, useAppSelector } from '../types';
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
+  const tabits = useAppSelector(state => state.tabits);
+  console.log(tabits);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Home</Text>
