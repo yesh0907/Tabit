@@ -21,6 +21,7 @@ export type RootStackParamList = {
   NotFound: undefined;
   Login: undefined;
   Verification: undefined;
+  "Add Tabit": undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

@@ -22,6 +22,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import { selectLoggedIn } from '../reducers/userSlice';
 import LoginScreen from '../screens/LoginScreen';
 import VerificationScreen from '../screens/VerificationScreen';
+import AddTabitScreen from '../screens/AddTabitScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -49,6 +50,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen name="Add Tabit" component={AddTabitScreen} />
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
@@ -78,14 +80,14 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="create" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => navigation.navigate('Add Tabit')}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
               <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
+                name="plus-circle"
+                size={30}
+                color={Colors.green}
                 style={{ marginRight: 15 }}
               />
             </Pressable>
