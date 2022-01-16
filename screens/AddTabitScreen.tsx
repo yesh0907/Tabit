@@ -30,7 +30,7 @@ export default function AddTabitScreen({ navigation }: RootStackScreenProps<'Add
         dispatch(addTabit({ 
             name, freq, streak: 0, end: endDate.toDateString() 
         }));
-        navigation.navigate("Root");
+        navigation.navigate("Add Accountability Buddy");
     }
 
     return (

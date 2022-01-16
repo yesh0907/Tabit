@@ -23,6 +23,7 @@ import { selectLoggedIn } from '../reducers/userSlice';
 import LoginScreen from '../screens/LoginScreen';
 import VerificationScreen from '../screens/VerificationScreen';
 import AddTabitScreen from '../screens/AddTabitScreen';
+import AddContactsScreen from '../screens/AddContactsScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -51,7 +52,7 @@ function RootNavigator() {
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Add Tabit" component={AddTabitScreen} />
-        <Stack.Screen name="Modal" component={ModalScreen} />
+        <Stack.Screen name="Add Accountability Buddy" component={AddContactsScreen} />
       </Stack.Group>
     </Stack.Navigator>
   );

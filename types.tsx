@@ -22,6 +22,7 @@ export type RootStackParamList = {
   Login: undefined;
   Verification: undefined;
   "Add Tabit": undefined;
+  "Add Accountability Buddy": undefined;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
