@@ -28,5 +28,6 @@ export const userSlice = createSlice({
 export const { login, updatePhoneNumber } = userSlice.actions;
 
 export const selectLoggedIn = (state: RootState) => state.user.loggedIn;
+export const selectPhoneNumber = (state: RootState) => state.user.phoneNumber;
 
 export default userSlice.reducer;
