@@ -45,10 +45,14 @@ export const tabitsSlice = createSlice({
             if (existingTabit) {
                 existingTabit.streak += 1;
             }
+        },
+        updateContacts: (state, action) => {
+            const tabit = state[state.length - 1];
+            tabit.contacts = action.payload;
         }
     }
 });
 
-export const { addTabit, updateTabitStreak } = tabitsSlice.actions;
+export const { addTabit, updateTabitStreak, updateContacts } = tabitsSlice.actions;
 
 export default tabitsSlice.reducer;
