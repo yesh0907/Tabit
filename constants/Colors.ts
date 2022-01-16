@@ -2,6 +2,7 @@ const tintColorLight = '#2faa12';
 const tintColorDark = '#fff';
 
 export default {
+  green: '#0FA958',
   light: {
     text: '#000',
     background: '#fff',
