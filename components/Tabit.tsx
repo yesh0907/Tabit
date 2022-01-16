@@ -1,16 +1,18 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 
 import { View, Text } from "./Themed";
 import { Tabit as TabitInterface } from '../reducers/tabitsSlice';
 import Layout from '../constants/Layout';
-import Indicator from "./Indicator";
+import { useAppDispatch } from "../types";
+import { updateTabitStreak } from "../reducers/tabitsSlice";
 
 type TabitProps = {
     tabit: TabitInterface,
 }
 
 export default function Tabit({ tabit }: TabitProps) {
+    const dispatch = useAppDispatch();
 
     function mapDaysToString(days: number[]) {
         let result = "";
@@ -41,17 +43,19 @@ export default function Tabit({ tabit }: TabitProps) {
                     {mapDaysToString(tabit.freq)} until {tabit.end}
                 </Text>
             </View>
-            <View style={{
+            <Pressable 
+            style={{
                 flex: 2, justifyContent: 'flex-start',
                 alignItems: 'center',
-            }}>
+            }}
+            onPress={() => dispatch(updateTabitStreak(tabit))}>
                 <Text style={styles.fireEmoji}>
                     🔥
                 </Text>
                 <Text style={styles.streak}>
                     {tabit.streak}
                 </Text>
-            </View>
+            </Pressable>
         </View>
     )
 }
