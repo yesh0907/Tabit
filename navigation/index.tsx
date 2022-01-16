@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -93,6 +93,9 @@ function BottomTabNavigator() {
               />
             </Pressable>
           ),
+          headerLeft: () => (
+            <MaterialCommunityIcons size={30} name="turtle" color={Colors.green} style={{ marginLeft: 15 }} />
+          )
         })}
       />
       <BottomTab.Screen

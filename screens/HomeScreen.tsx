@@ -1,7 +1,10 @@
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps, useAppSelector } from '../types';
+import Tabit from '../components/Tabit';
+import SwipeIndicators from '../components/SwipeIndicators';
 
 export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
   const tabits = useAppSelector(state => state.tabits);
@@ -9,8 +12,16 @@ export default function HomeScreen({ navigation }: RootTabScreenProps<'Home'>) {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Home</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      <ScrollView 
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+      >
+        <Tabit tabit={tabits[0]} />
+        <Tabit tabit={tabits[1]} />
+        <Tabit tabit={tabits[2]} />
+      </ScrollView>
+      <SwipeIndicators tabits={tabits} current={0} />
     </View>
   );
 }
@@ -20,14 +31,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
   },
 });
