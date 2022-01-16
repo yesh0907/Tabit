@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   mobileInput: {
     backgroundColor: 'white',
     padding: 20,
-    borderColor: 'black',
+    borderColor: Colors.green,
     borderStyle: 'solid',
     borderRadius: 10,
     borderWidth: 2,
