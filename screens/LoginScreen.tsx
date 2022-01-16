@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { TextInput, StyleSheet, KeyboardAvoidingView, Platform, TouchableWithoutFeedback, Keyboard, TouchableOpacity } from 'react-native';
 
 import { Text, View } from '../components/Themed';
 import Colors from '../constants/Colors';
-import { RootTabScreenProps } from '../types';
+import { RootStackScreenProps, useAppDispatch } from '../types';
+import { updatePhoneNumber } from '../reducers/userSlice';
 
-export default function LoginScreen({ navigation }: RootTabScreenProps<'Login'>) {
+export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'>) {
+  const dispatch = useAppDispatch();
+
+  const [number, setNumber] = useState("");
+
+  function submit() {
+    console.log("submitted", number);
+    dispatch(updatePhoneNumber(number));
+    navigation.push("Verification");
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.turtle}>
@@ -33,6 +44,8 @@ export default function LoginScreen({ navigation }: RootTabScreenProps<'Login'>)
                 keyboardType='phone-pad'
                 maxLength={10}
                 returnKeyType='done'
+                value={number}
+                onChangeText={setNumber}
               />
             </View>
           </View>
@@ -40,6 +53,7 @@ export default function LoginScreen({ navigation }: RootTabScreenProps<'Login'>)
       </KeyboardAvoidingView>
       <TouchableOpacity
         style={styles.mobileSubmit}
+        onPress={submit}
       >
         <FontAwesome5
           name="arrow-right"

@@ -21,6 +21,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import { selectLoggedIn } from '../reducers/userSlice';
 import LoginScreen from '../screens/LoginScreen';
+import VerificationScreen from '../screens/VerificationScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -41,17 +42,11 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   const isLoggedIn = useAppSelector(selectLoggedIn);
 
-  const rootComponent = () => {
-    if (isLoggedIn) {
-      return BottomTabNavigator;
-    } else {
-      return LoginScreen;
-    }
-  }
-
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Root" component={rootComponent()} options={{ headerShown: false }} />
+    <Stack.Navigator initialRouteName={isLoggedIn ? 'Root' : 'Login'}>
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Verification" component={VerificationScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />

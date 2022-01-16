@@ -3,10 +3,12 @@ import { RootState } from "../store";
 
 export interface UserState {
     loggedIn: boolean,
+    phoneNumber: string,
 }
 
 const initialState: UserState = {
     loggedIn: false,
+    phoneNumber: "",
 }
 
 
@@ -16,11 +18,14 @@ export const userSlice = createSlice({
     reducers: {
         login: (state) => {
             state.loggedIn = true;
+        },
+        updatePhoneNumber: (state, action) => {
+            state.phoneNumber = action.payload;
         }
     }
 });
 
-export const { login } = userSlice.actions;
+export const { login, updatePhoneNumber } = userSlice.actions;
 
 export const selectLoggedIn = (state: RootState) => state.user.loggedIn;
 
