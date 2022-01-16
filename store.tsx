@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import userReducer from './reducers/userSlice';
+import tabitsReducer from './reducers/tabitsSlice';
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
+        tabits: tabitsReducer,
     }
 });
 
