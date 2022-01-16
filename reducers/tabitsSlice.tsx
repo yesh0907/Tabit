@@ -4,7 +4,7 @@ export interface Tabit {
     name: string,
     freq: number[],
     streak: number,
-    end: Date | undefined
+    end: Date | -1
 }
 
 const initialState: Tabit[] = [
@@ -18,7 +18,7 @@ const initialState: Tabit[] = [
         name: "Walk 10,000 steps",
         freq: [1,5],
         streak: 20,
-        end: undefined
+        end: -1
     },
     {
         name: "Call Mom",
