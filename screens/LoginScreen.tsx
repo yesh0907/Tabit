@@ -13,7 +13,6 @@ export default function LoginScreen({ navigation }: RootStackScreenProps<'Login'
   const [number, setNumber] = useState("");
 
   function submit() {
-    console.log("submitted", number);
     dispatch(updatePhoneNumber(number));
     navigation.push("Verification");
   }

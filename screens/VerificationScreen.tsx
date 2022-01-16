@@ -1,25 +1,39 @@
 import React from 'react';
-import { MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
+import { MaterialCommunityIcons, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TextInput, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 
 import Colors from '../constants/Colors';
 import { Text, View } from '../components/Themed';
-import { RootStackScreenProps, useAppSelector } from '../types';
-import { selectPhoneNumber } from '../reducers/userSlice';
+import { RootStackScreenProps, useAppDispatch, useAppSelector } from '../types';
+import { login, selectPhoneNumber } from '../reducers/userSlice';
 import VerificationInput from '../components/VerificationInput';
 
 
 export default function VerificationScreen({ navigation }: RootStackScreenProps<'Verification'>) {
+  const dispatch = useAppDispatch();
   let phoneNumber = useAppSelector(selectPhoneNumber);
 
   if (phoneNumber.length == 0) {
     phoneNumber = "your phone number";
+  }
+
+  function verify() {
+    dispatch(login());
+    navigation.navigate("Root");
   }
   
   return (
     <View style={styles.container}>
       <View style={styles.turtle}>
         <MaterialCommunityIcons size={50} name="turtle" color={Colors.green} />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Ionicons
+            name="arrow-back"
+            size={35}
+            color="black"
+            style={styles.back}
+          />
+        </TouchableOpacity>
       </View>
       <KeyboardAvoidingView
         behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
@@ -40,7 +54,7 @@ export default function VerificationScreen({ navigation }: RootStackScreenProps<
       </KeyboardAvoidingView>
       <TouchableOpacity
         style={styles.verificationSubmit}
-        onPress={() => null}
+        onPress={verify}
       >
         <FontAwesome5
           name="arrow-right"
@@ -62,6 +76,10 @@ const styles = StyleSheet.create({
     paddingTop: 45,
     paddingLeft: 10,
     alignSelf: 'flex-start',
+  },
+  back: {
+    marginLeft: 5,
+    marginTop: 10
   },
   outerBody: {
     flex: 2,
